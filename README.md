@@ -1,50 +1,39 @@
-# ReVanced Magisk Module
-[![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/rvc_magisk)
-[![CI](https://github.com/j-hc/revanced-magisk-module/actions/workflows/ci.yml/badge.svg?event=schedule)](https://github.com/j-hc/revanced-magisk-module/actions/workflows/ci.yml)
+# ReVanced Auto Update
 
-Extensive ReVanced builder  
+[![Build Modules](https://github.com/vuquan2005/revanced-auto-update/actions/workflows/build.yml/badge.svg)](https://github.com/vuquan2005/revanced-auto-update/actions/workflows/build.yml)
 
-Get the [latest CI release](https://github.com/j-hc/revanced-magisk-module/releases).
+Tự động build và cập nhật các ứng dụng ReVanced mới nhất.
 
-Use [**zygisk-detach**](https://github.com/j-hc/zygisk-detach) to detach YouTube and YT Music from Play Store if you are using magisk modules. 
+## 📥 Tải xuống
 
-<details><summary><big>Features</big></summary>
-<ul>
- <li>Support all present and future ReVanced and <a href="https://github.com/inotia00/revanced-patches">ReVanced Extended</a> apps</li>
- <li> Can build Magisk modules and non-root APKs</li>
- <li> Updated daily with the latest versions of apps and patches</li>
- <li> Optimize APKs and modules for size</li>
- <li> Modules</li>
-    <ul>
-     <li> recompile invalidated odex for faster usage</li>
-     <li> receive updates from Magisk app</li>
-     <li> do not break safetynet or trigger root detections</li>
-     <li> handle installation of the correct version of the stock app and all that</li>
-     <li> support Magisk and KernelSU</li>
-    </ul>
-</ul>
-Note that the <a href="../../actions/workflows/ci.yml">CI workflow</a> is scheduled to build the modules and APKs everyday using GitHub Actions if there is a change in ReVanced patches. You may want to disable it.
-</details>
+Tải file APK mới nhất tại trang **[Releases](https://github.com/vuquan2005/revanced-auto-update/releases/latest)**.
 
-## To include/exclude patches or patch other apps
+### Các ứng dụng hiện có:
 
- * Star the repo :eyes:
- * Use the repo as a [template](https://github.com/new?template_name=revanced-magisk-module&template_owner=j-hc)
- * Customize [`config.toml`](./config.toml) using [rvmm-config-gen](https://j-hc.github.io/rvmm-config-gen/)
- * Run the build [workflow](../../actions/workflows/build.yml)
- * Grab your modules and APKs from [releases](../../releases)
+| Ứng dụng             | Mô tả                              |
+| -------------------- | ---------------------------------- |
+| **YouTube ReVanced** | YouTube với các bản vá từ ReVanced |
+| **YouTube Morphe**   | YouTube với các bản vá từ Morphe   |
 
-also see here [`CONFIG.md`](./CONFIG.md)
+### Hướng dẫn cài đặt:
 
-## Building Locally
-### On Termux
-```console
-bash <(curl -sSf https://raw.githubusercontent.com/j-hc/revanced-magisk-module/main/build-termux.sh)
-```
+1. Tải file `.apk` từ trang [Releases](https://github.com/vuquan2005/revanced-auto-update/releases/latest)
+2. Cài đặt APK trên thiết bị Android của bạn
+3. Nếu chưa có, hãy cài đặt [GmsCore](https://github.com/ReVanced/GmsCore/releases/latest) (bắt buộc để đăng nhập tài khoản Google)
+4. Mở ứng dụng và đăng nhập tài khoản
 
-### On Desktop
-```console
-$ git clone https://github.com/j-hc/revanced-magisk-module
-$ cd revanced-magisk-module
-$ ./build.sh
-```
+> ⚠️ **Lưu ý:** Bạn cần bật "Cài đặt từ nguồn không xác định" trong cài đặt bảo mật của thiết bị.
+
+## 🔄 Cập nhật tự động
+
+Repo này được cấu hình để tự động build và phát hành phiên bản mới khi có bản vá ReVanced mới. Bạn có thể theo dõi trang Releases để nhận thông báo cập nhật.
+
+## 🙏 Ghi công
+
+Dự án này được xây dựng dựa trên:
+
+- **[j-hc/revanced-magisk-module](https://github.com/j-hc/revanced-magisk-module)** - Build script và cấu trúc dự án gốc
+- **[ReVanced](https://github.com/ReVanced)** - Patches và CLI cho YouTube ReVanced
+- **[MorpheApp](https://github.com/MorpheApp)** - Patches và CLI cho YouTube Morphe
+
+Cảm ơn các tác giả đã phát triển và duy trì các công cụ tuyệt vời này!
