@@ -45,7 +45,6 @@ jobs:
           echo "NEXT_VER_CODE=$((TAG + 1))" >> $GITHUB_OUTPUT
 
       - name: Setup Keystore
-        if: ${{ inputs.from_ci }}
         id: keystore
         run: |
           # Check if custom keystore is configured
