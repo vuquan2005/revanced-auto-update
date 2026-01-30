@@ -44,12 +44,34 @@ jobs:
           if [ -z "$TAG" ]; then TAG=0; fi
           echo "NEXT_VER_CODE=$((TAG + 1))" >> $GITHUB_OUTPUT
 
+      - name: Setup Keystore
+        if: ${{ inputs.from_ci }}
+        id: keystore
+        run: |
+          # Check if custom keystore is configured
+          if [ -n "${{ secrets.KEYSTORE_FILE_BASE64 }}" ]; then
+            # Validate all required secrets are present
+            if [ -z "${{ secrets.KEYSTORE_PASSWORD }}" ] || [ -z "${{ secrets.KEY_PASSWORD }}" ] || [ -z "${{ secrets.KEY_ALIAS }}" ]; then
+              echo "::error::KEYSTORE_FILE_BASE64 is set but missing required secrets: KEYSTORE_PASSWORD, KEY_PASSWORD, or KEY_ALIAS"
+              exit 1
+            fi
+            echo "${{ secrets.KEYSTORE_FILE_BASE64 }}" | base64 -d > ks.keystore
+            echo "using_custom=true" >> $GITHUB_OUTPUT
+            echo "Using custom keystore from secrets"
+          else
+            echo "using_custom=false" >> $GITHUB_OUTPUT
+            echo "Using default ks.keystore from repository"
+          fi
+
       - name: Build modules/APKs
         run: if [ -f "config.json" ]; then ./build.sh config.json; else ./build.sh config.toml; fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: $GITHUB_REPOSITORY
           NEXT_VER_CODE: ${{ steps.next_ver_code.outputs.NEXT_VER_CODE }}
+          KEYSTORE_PASSWORD: ${{ steps.keystore.outputs.using_custom == 'true' && secrets.KEYSTORE_PASSWORD || '' }}
+          KEY_PASSWORD: ${{ steps.keystore.outputs.using_custom == 'true' && secrets.KEY_PASSWORD || '' }}
+          KEY_ALIAS: ${{ steps.keystore.outputs.using_custom == 'true' && secrets.KEY_ALIAS || '' }}
 
       - name: Get output
         id: get_output
